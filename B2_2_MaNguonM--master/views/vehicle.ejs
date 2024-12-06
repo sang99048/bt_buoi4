@@ -1,0 +1,64 @@
+<%- include('layouts/header') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biển số xe</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+        }
+    </style>
+    <script>
+        function displayPlateNumbers() {
+            const select = document.getElementById("city");
+            const index = select.value;
+            const platesTableBody = document.getElementById("platesTable").getElementsByTagName('tbody')[0];
+            platesTableBody.innerHTML = ""; // Clear existing rows
+            
+            // Get the selected city's plate numbers
+            const selectedCity = <%- JSON.stringify(data) %>[index];
+            const plateNumbers = selectedCity ? selectedCity.plate_no.split(',') : [];
+
+            // Use forEach to display each plate number in a new row
+            if (plateNumbers.length > 0) {
+                plateNumbers.forEach((plate) => {
+                    const newRow = platesTableBody.insertRow();
+                    const newCell = newRow.insertCell(0);
+                    newCell.textContent = plate.trim(); // Trim any whitespace
+                });
+            } else {
+                alert("No plate numbers available for this city.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <center>
+        <h1>Chọn Tỉnh Thành</h1>
+        <select id="city">
+            <% data.forEach((item, index) => { %>
+                <option value="<%= index %>"><%= item.city %></option>
+            <% }) %>
+        </select>
+        <button onclick="displayPlateNumbers()">Hiển thị biển số</button>
+        <h2>Biển số xe tương ứng:</h2>
+        <table id="platesTable">
+            <thead>
+                <tr>
+                    <th>Biển số</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dữ liệu sẽ được hiển thị tại đây -->
+            </tbody>
+        </table>
+    </center>
+</body>
+</html>
+<%- include('layouts/footer') %>

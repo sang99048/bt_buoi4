@@ -1,0 +1,31 @@
+<%- include('layouts/header') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <center>
+    <h1>Login Page</h1>
+    <body>
+        
+    
+    <form action="/lo" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+
+        <button type="submit">Login</button>
+    </form>
+</body>
+
+    <!-- Hiển thị thông báo lỗi nếu có -->
+    <p style="color: red;"><%= error ? error : "" %></p>
+</center>
+</body>
+</html>
+<%- include('layouts/footer') %>
